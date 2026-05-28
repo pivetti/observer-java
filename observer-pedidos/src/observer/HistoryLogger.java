@@ -29,6 +29,11 @@ public class HistoryLogger implements Observer {
         System.out.println();
         System.out.println("=== Historico completo ===");
 
+        if (historico.isEmpty()) {
+            System.out.println("Nenhuma alteracao de status registrada.");
+            return;
+        }
+
         for (int i = 0; i < historico.size(); i++) {
             System.out.println((i + 1) + ". " + historico.get(i));
         }
