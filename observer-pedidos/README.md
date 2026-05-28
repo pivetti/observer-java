@@ -1,6 +1,6 @@
 # Padrão Observer em um Sistema de Pedidos
 
-Projeto acadêmico em Java puro que demonstra o padrão de projeto comportamental **Observer** usando um sistema simples de pedidos de uma loja virtual.
+Projeto acadêmico em Java com Maven que demonstra o padrão de projeto comportamental **Observer** usando um sistema simples de pedidos de uma loja virtual.
 
 ## Objetivo
 
@@ -45,24 +45,32 @@ No projeto, o ponto central está no método `setStatus(...)` da classe `Pedido`
 observer-java/
 ├── .gitignore
 └── observer-pedidos/
+    ├── pom.xml
     ├── README.md
     └── src/
-        ├── app/
-        │   └── Main.java
-        ├── model/
-        │   ├── Pedido.java
-        │   └── StatusPedido.java
-        ├── observer/
-        │   ├── DashboardUpdater.java
-        │   ├── EmailNotifier.java
-        │   ├── HistoryLogger.java
-        │   ├── Observer.java
-        │   └── SmsNotifier.java
-        └── subject/
-            └── Subject.java
+        └── main/
+            └── java/
+                ├── app/
+                │   └── Main.java
+                ├── model/
+                │   ├── Pedido.java
+                │   └── StatusPedido.java
+                ├── observer/
+                │   ├── DashboardUpdater.java
+                │   ├── EmailNotifier.java
+                │   ├── HistoryLogger.java
+                │   ├── Observer.java
+                │   └── SmsNotifier.java
+                └── subject/
+                    └── Subject.java
 ```
 
 ## Como compilar e executar
+
+Requisitos:
+
+- JDK 21 ou superior;
+- Apache Maven instalado e disponível no terminal pelo comando `mvn`.
 
 A partir da raiz do repositório, entre na pasta do projeto:
 
@@ -70,16 +78,23 @@ A partir da raiz do repositório, entre na pasta do projeto:
 cd observer-pedidos
 ```
 
-Compile os arquivos Java:
+Compile o projeto:
 
 ```bash
-javac -d out src/app/Main.java src/model/*.java src/observer/*.java src/subject/*.java
+mvn compile
 ```
 
 Execute a aplicação:
 
 ```bash
-java -cp out app.Main
+mvn exec:java
+```
+
+Se quiser gerar um `.jar` executável:
+
+```bash
+mvn package
+java -jar target/observer-pedidos-1.0.0.jar
 ```
 
 ## Exemplo de saída esperada
@@ -149,4 +164,4 @@ Alterando status para ENTREGUE:
 
 O projeto demonstra o padrão Observer de maneira objetiva: `Pedido` representa o objeto observado, os observadores se cadastram nele e todos são notificados automaticamente quando o status muda.
 
-A implementação continua simples e em Java puro, mas agora inclui validações básicas, proteção contra observadores duplicados, histórico imutável para consulta externa e uma demonstração mais completa para apresentação em sala.
+A implementação continua simples, mas agora usa Maven para padronizar a compilação e execução. Ela inclui validações básicas, proteção contra observadores duplicados, histórico imutável para consulta externa e uma demonstração mais completa para apresentação em sala.
