@@ -8,6 +8,8 @@ Demonstrar, de forma clara e executável pelo terminal, como um objeto observado
 
 Neste projeto, a mudança de status de um pedido dispara notificações para e-mail, SMS, dashboard administrativo e histórico.
 
+Ao executar a aplicação, o usuário informa o nome do cliente pelo terminal. O ID do pedido é gerado automaticamente e os status são escolhidos por um menu interativo.
+
 ## Contexto do problema
 
 Em uma loja virtual, um pedido passa por diferentes status, como `EM_PROCESSAMENTO`, `PAGO`, `ENVIADO` e `ENTREGUE`.
@@ -97,11 +99,12 @@ mvn package
 java -jar target/observer-pedidos-1.0.0.jar
 ```
 
-## Exemplo de saída esperada
+## Exemplo de uso
 
 ```text
 === 1. Criacao do pedido ===
-Pedido criado: #1001 - Cliente: Ana Silva - Status inicial: EM_PROCESSAMENTO
+Digite o nome do cliente: Maria Souza
+Pedido criado: #1001 - Cliente: Maria Souza - Status inicial: EM_PROCESSAMENTO
 
 === 2. Cadastro dos observadores ===
 EmailNotifier cadastrado.
@@ -111,39 +114,50 @@ HistoryLogger cadastrado.
 
 === 3. Alteracoes de status ===
 
+Status atual: EM_PROCESSAMENTO
+Escolha o novo status do pedido:
+1 - EM_PROCESSAMENTO
+2 - PAGO
+3 - ENVIADO
+4 - ENTREGUE
+0 - Sair
+Escolha uma opcao: 2
+
 Alterando status para PAGO:
-[E-MAIL] Ola, Ana Silva! Seu pedido #1001 mudou de EM_PROCESSAMENTO para PAGO.
-[SMS] Ana Silva, atualizacao do pedido #1001: PAGO.
+[E-MAIL] Ola, Maria Souza! Seu pedido #1001 mudou de EM_PROCESSAMENTO para PAGO.
+[SMS] Maria Souza, atualizacao do pedido #1001: PAGO.
 [DASHBOARD] Pedido #1001 agora esta com status PAGO.
 [HISTORICO] Pedido #1001: EM_PROCESSAMENTO -> PAGO
 
+Status atual: PAGO
+Escolha o novo status do pedido:
+1 - EM_PROCESSAMENTO
+2 - PAGO
+3 - ENVIADO
+4 - ENTREGUE
+0 - Sair
+Escolha uma opcao: 3
+
 Alterando status para ENVIADO:
-[E-MAIL] Ola, Ana Silva! Seu pedido #1001 mudou de PAGO para ENVIADO.
-[SMS] Ana Silva, atualizacao do pedido #1001: ENVIADO.
+[E-MAIL] Ola, Maria Souza! Seu pedido #1001 mudou de PAGO para ENVIADO.
+[SMS] Maria Souza, atualizacao do pedido #1001: ENVIADO.
 [DASHBOARD] Pedido #1001 agora esta com status ENVIADO.
 [HISTORICO] Pedido #1001: PAGO -> ENVIADO
 
-=== 4. Tentativa de repetir o mesmo status ===
 Status atual: ENVIADO
-Tentando alterar novamente para ENVIADO.
-Nenhuma notificacao foi exibida porque o status nao mudou.
+Escolha o novo status do pedido:
+1 - EM_PROCESSAMENTO
+2 - PAGO
+3 - ENVIADO
+4 - ENTREGUE
+0 - Sair
+Escolha uma opcao: 0
 
-=== 5. Remocao de um observador ===
-SmsNotifier removido. Ele nao recebera as proximas notificacoes.
-
-=== 6. Nova alteracao apos a remocao ===
-
-Alterando status para ENTREGUE:
-[E-MAIL] Ola, Ana Silva! Seu pedido #1001 mudou de ENVIADO para ENTREGUE.
-[DASHBOARD] Pedido #1001 agora esta com status ENTREGUE.
-[HISTORICO] Pedido #1001: ENVIADO -> ENTREGUE
-
-=== 7. Historico registrado pelo HistoryLogger ===
+=== 4. Historico registrado pelo HistoryLogger ===
 
 === Historico completo ===
 1. Pedido #1001: EM_PROCESSAMENTO -> PAGO
 2. Pedido #1001: PAGO -> ENVIADO
-3. Pedido #1001: ENVIADO -> ENTREGUE
 ```
 
 ## Benefícios do padrão no projeto
@@ -164,4 +178,4 @@ Alterando status para ENTREGUE:
 
 O projeto demonstra o padrão Observer de maneira objetiva: `Pedido` representa o objeto observado, os observadores se cadastram nele e todos são notificados automaticamente quando o status muda.
 
-A implementação continua simples, mas agora usa Maven para padronizar a compilação e execução. Ela inclui validações básicas, proteção contra observadores duplicados, histórico imutável para consulta externa e uma demonstração mais completa para apresentação em sala.
+A implementação continua simples, mas agora usa Maven para padronizar a compilação e execução. Ela inclui entrada de dados pelo terminal, ID automático, validações básicas, proteção contra observadores duplicados, histórico imutável para consulta externa e uma demonstração mais completa para apresentação em sala.

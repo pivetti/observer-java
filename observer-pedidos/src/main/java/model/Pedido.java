@@ -8,10 +8,16 @@ import subject.Subject;
 
 // ConcreteSubject: objeto observado pelos notificadores.
 public class Pedido implements Subject {
+    private static int proximoId = 1001;
+
     private final int id;
     private final String nomeCliente;
     private StatusPedido status;
     private final List<Observer> observers = new ArrayList<>();
+
+    public Pedido(String nomeCliente, StatusPedido statusInicial) {
+        this(gerarProximoId(), nomeCliente, statusInicial);
+    }
 
     public Pedido(int id, String nomeCliente, StatusPedido statusInicial) {
         if (id <= 0) {
@@ -27,6 +33,10 @@ public class Pedido implements Subject {
         this.id = id;
         this.nomeCliente = nomeCliente.trim();
         this.status = statusInicial;
+    }
+
+    private static int gerarProximoId() {
+        return proximoId++;
     }
 
     @Override
